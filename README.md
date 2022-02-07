@@ -1,4 +1,4 @@
-# Grocer
+# grocer
 Grocery at the palm of your hands
 ## What is Grocer?
 Grocer is an application to check the availability of a particular item in the local shops near you. With the help of grocer you can just make a request through our app which will let you know if the particular items is in stock or not.
