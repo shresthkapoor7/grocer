@@ -10,3 +10,5 @@ In our application once you enter you will be greeted by a login screen, after l
 * UI/UX - Flutter
 * Back-end and authentication - Firebase
 * State Management Technique - River-pod
+## Notion Page
+https://ancient-galley-7f2.notion.site/Grocer-9e8abb5b1dd54791b54a699fb0104013
