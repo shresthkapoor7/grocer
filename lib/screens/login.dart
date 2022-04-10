@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:grocer/screens/homepage.dart';
+import 'package:grocer/screens/signup.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -151,6 +152,7 @@ class _LoginState extends State<Login> {
                       );
                     } catch (e) {
                       print(e);
+                      showAlertDialog(context);
                     }
                     setState(() {
                       _continueLoader = false;
@@ -240,7 +242,12 @@ class _LoginState extends State<Login> {
                       style: TextStyle(color: Colors.grey),
                     ),
                     TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => SignUpPage()));
+                        },
                         child: Text(
                           'Sign Up',
                           style: TextStyle(color: Colors.green),
@@ -274,3 +281,32 @@ InputDecoration kcontainerdecoration = InputDecoration(
   ),
   border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
 );
+
+showAlertDialog(BuildContext context) {
+  Widget continueButton = TextButton(
+    child: Text(
+      "OK",
+      style: TextStyle(color: Colors.green),
+    ),
+    onPressed: () {
+      Navigator.pop(context);
+    },
+  );
+
+  // set up the AlertDialog
+  AlertDialog alert = AlertDialog(
+    title: Text("Error"),
+    content: Text("Invalid username or password"),
+    actions: [
+      continueButton,
+    ],
+  );
+
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
+}
