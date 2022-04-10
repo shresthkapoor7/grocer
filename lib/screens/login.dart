@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:grocer/screens/homepage.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -144,6 +145,10 @@ class _LoginState extends State<Login> {
                           .signInWithEmailAndPassword(
                               email: _email, password: _password);
                       print("User signed in");
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => MyHomePage()),
+                      );
                     } catch (e) {
                       print(e);
                     }
