@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/home/soham/flutter_projects/Grocer/grocer/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-night-v8/values-night-v8.xml",
+            "outputFile": "/home/shresth/androidprojects/grocer/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-night-v8/values-night-v8.xml",
             "map": [
                 {
-                    "source": "/home/soham/flutter_projects/Grocer/grocer/android/app/src/main/res/values-night/styles.xml",
+                    "source": "/home/shresth/androidprojects/grocer/android/app/src/main/res/values-night/styles.xml",
                     "from": {
                         "startLines": "3,14",
                         "startColumns": "4,4",
