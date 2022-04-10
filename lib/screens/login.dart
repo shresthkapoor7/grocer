@@ -2,14 +2,30 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 class Login extends StatefulWidget {
   @override
   State<Login> createState() => _LoginState();
 }
 
+String _email = ' ';
+String _password = ' ';
+bool _continueLoader = false;
+
 class _LoginState extends State<Login> {
   bool value = false;
+
+  Future<FirebaseApp> _initializeFirebase() async {
+    FirebaseApp _firebaseApp = await Firebase.initializeApp();
+    return _firebaseApp;
+  }
+
+  void initState() {
+    super.initState();
+    _initializeFirebase();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +65,11 @@ class _LoginState extends State<Login> {
                   ),
                   child: TextField(
                     cursorColor: Colors.green,
+                    onChanged: (value) {
+                      setState(() {
+                        _email = value;
+                      });
+                    },
                     decoration: kcontainerdecoration.copyWith(
                         hintText: 'Enter your email'),
                   ),
@@ -65,6 +86,11 @@ class _LoginState extends State<Login> {
                   child: TextFormField(
                     obscureText: true,
                     cursorColor: Colors.green,
+                    onChanged: (value) {
+                      setState(() {
+                        _password = value;
+                      });
+                    },
                     decoration: kcontainerdecoration.copyWith(
                         labelText: 'Password',
                         hintText: 'Enter your password',
@@ -107,16 +133,38 @@ class _LoginState extends State<Login> {
                   height: 15,
                 ),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () async {
+                    setState(() {
+                      _continueLoader = true;
+                    });
+                    print("Continue button pressed");
+                    print(_email + " " + _password);
+                    try {
+                      UserCredential newUser = await FirebaseAuth.instance
+                          .signInWithEmailAndPassword(
+                              email: _email, password: _password);
+                      print("User signed in");
+                    } catch (e) {
+                      print(e);
+                    }
+                    setState(() {
+                      _continueLoader = false;
+                    });
+                  },
                   child: Container(
                     child: Center(
-                        child: Text(
-                      'Continue',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w500),
-                    )),
+                        child: (_continueLoader)
+                            ? CircularProgressIndicator(
+                                valueColor:
+                                    AlwaysStoppedAnimation<Color>(Colors.white),
+                              )
+                            : Text(
+                                'Continue',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w500),
+                              )),
                     height: 50,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
@@ -125,7 +173,7 @@ class _LoginState extends State<Login> {
                   ),
                 ),
                 SizedBox(
-                  height: 2,
+                  height: 10,
                 ),
                 GestureDetector(
                   onTap: () {},
@@ -151,6 +199,7 @@ class _LoginState extends State<Login> {
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
+                  // ignore: prefer_const_literals_to_create_immutables
                   children: [
                     CircleAvatar(
                       backgroundColor: Colors.white,
@@ -202,7 +251,7 @@ class _LoginState extends State<Login> {
   }
 }
 
-String t = "don't have a account";
+String t = "don't have an account";
 Decoration ktextfielddecoration = BoxDecoration(
     borderRadius: BorderRadius.circular(0),
     border: Border.all(color: Colors.white, width: 0));
